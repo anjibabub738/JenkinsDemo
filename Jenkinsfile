@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'mcr.microsoft.com/dotnet/sdk:8.0'
-            args '-u root'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'dotnet build --configuration Release'
+                sh 'dotnet build --no-restore'
             }
         }
 
